@@ -1,0 +1,140 @@
+<!-- Editable table -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
+    Brand List
+  </h3>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <!-- <span class="table-add float-right mb-3 mr-2">
+          <a class="text-success" (click)="add()">
+            <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+          </a>
+        </span> -->
+      <table
+        class="table table-bordered table-responsive-md table-striped text-center"
+      >
+        <tr>
+          <th class="text-center">Band Name</th>
+          <th class="text-center">Brand Hotline</th>
+          <th class="text-center">Brand Desc</th>
+          <th class="text-center">Brands Latitude</th>
+          <th class="text-center">Brands Longitude</th>
+          <th class="text-center">Models</th>
+          <th class="text-center">Shoew Models</th>
+        </tr>
+        <tr *ngFor="let brand of brandList; let id = index">
+          <td>
+            <span
+              (keyup)="changeValue(id, 'name', $event)"
+              (blur)="updateList(id, 'name', $event)"
+              contenteditable="true"
+              >{{ brand.brands_name_en }}</span
+            >
+          </td>
+          <td>
+            <span
+              contenteditable="true"
+              (keyup)="changeValue(id, 'age', $event)"
+              (blur)="updateList(id, 'age', $event)"
+              >{{ brand.brands_hotline || "----" }}</span
+            >
+          </td>
+          <td>
+            <span
+              contenteditable="true"
+              (keyup)="changeValue(id, 'companyName', $event)"
+              (blur)="updateList(id, 'companyName', $event)"
+              >{{ brand.brands_desc_en || "----" }}</span
+            >
+          </td>
+          <td>
+            <span
+              contenteditable="true"
+              (keyup)="changeValue(id, 'country', $event)"
+              (blur)="updateList(id, 'country', $event)"
+              >{{ brand.brands_latitude || "----" }}</span
+            >
+          </td>
+          <td>
+            <span
+              contenteditable="true"
+              (keyup)="changeValue(id, 'city', $event)"
+              (blur)="updateList(id, 'city', $event)"
+              >{{ brand.brands_longitude || "----" }}</span
+            >
+          </td>
+          <td>
+            <span>
+              <!-- <a class="indigo-text">
+                  <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+                </a> -->
+              <div class="dropdown" mdbDropdown>
+                <a
+                  mdbDropdownToggle
+                  mdbBtn
+                  color="primary"
+                  class="dropdown-toggle waves-light"
+                  type="button"
+                  mdbWavesEffect
+                >
+                  Models
+                </a>
+                <div class="dropdown-menu dropdown-primary">
+                  <a
+                    class="dropdown-item"
+                    *ngFor="let model of brand.models"
+                    (click)="openModal('custom-modal-1', model.id)"
+                    >{{ model.models_name_en }}
+                  </a>
+                  <!-- <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                      <a class="dropdown-item" href="#">Something else here</a> -->
+                </div>
+              </div>
+            </span>
+            <!-- <span class="table-down">
+                <a class="indigo-text">
+                  <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
+                </a>
+              </span> -->
+          </td>
+          <td>
+            <span class="table-remove">
+              <button
+                type="button"
+                mdbBtn
+                color="danger"
+                rounded="true"
+                size="sm"
+                class="my-0"
+                (click)="remove(id)"
+              >
+                Remove
+              </button>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<jw-modal id="custom-modal-1">
+    
+  <h1>Modal Info</h1>
+  <!-- {{bodyText | json}} -->
+  <div *ngIf="bodyText">
+      
+  <h4 >Model Name: {{bodyText.models_name_en}}</h4>
+    <p *ngFor="let spec of bodyText.english_spec">
+      Name: {{ spec.spec_sub_trim_en || "---NA---" }}
+    </p>
+  </div>
+  <button (click)="closeModal('custom-modal-1')">Close</button>
+</jw-modal>
+
+<jw-modal id="custom-modal-2">
+  <h1 style="height:1000px">A Tall Custom Modal!</h1>
+  <button (click)="closeModal('custom-modal-2')">Close</button>
+</jw-modal>
+<!-- Editable table -->
